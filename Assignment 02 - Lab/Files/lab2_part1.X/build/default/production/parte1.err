@@ -1,0 +1,4 @@
+Warning[205] C:\USERS\THYAG\MPLABXPROJECTS\LAB2_PART1.X\PARTE1.ASM 3 : Found directive in column 1. (ORG)
+Warning[205] C:\USERS\THYAG\MPLABXPROJECTS\LAB2_PART1.X\PARTE1.ASM 6 : Found directive in column 1. (ORG)
+Message[302] C:\USERS\THYAG\MPLABXPROJECTS\LAB2_PART1.X\PARTE1.ASM 12 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\USERS\THYAG\MPLABXPROJECTS\LAB2_PART1.X\PARTE1.ASM 22 : Found directive in column 1. (END)
