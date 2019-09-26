@@ -19,6 +19,10 @@ INI:
     BANKSEL TRISC 
     MOVLW   0x00	; Dica: Os pinos de acionamento dos LEDs do BARGRAPH estão conectados a PORTC 
     MOVWF   TRISC	; Dica: Pinos para acionamento externo devem ser configurados como saídas 
+    
+    BANKSEL TRISB 
+    MOVLW   0x00	; Dica: Os pinos de acionamento dos LEDs do BARGRAPH estão conectados a PORTC 
+    MOVWF   TRISB	; Dica: Pinos para acionamento externo devem ser configurados como saídas 
 
     BANKSEL ADCON1
     MOVLW   0x00	; Configurar conforme pedido no guia
@@ -30,6 +34,10 @@ MAIN:
     MOVFW   ad_H
     BANKSEL PORTC
     MOVWF   PORTC
+    BANKSEL ad_L
+    MOVFW   ad_L
+    BANKSEL PORTB
+    MOVWF   PORTB
     GOTO    MAIN
 
 le_ad:
