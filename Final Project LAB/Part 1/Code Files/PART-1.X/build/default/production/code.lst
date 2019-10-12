@@ -1,4 +1,4 @@
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  1
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,85 +57,61 @@ Message[302]: Register in operand not in bank 0.  Ensure that bank bits are corr
 Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
 0010   0086           00038     MOVWF   TRISB
                       00039     
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  2
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00040   ; CONFIGURANDO PWM : DUTY_CYCLE = 80%,Fosc = 10MHz, Fpwm = 4.88KHz
-0011   1283 1303      00041     BANKSEL CCP1CON
-0013   302C           00042     MOVLW   B'00101100'
-0014   0097           00043     MOVWF   CCP1CON
+                      00040   ; CONFIGURAÇAO INICIAL DOS MOTORES = ATIVO
+0011   1283 1303      00041     BANKSEL PORTB
+0013   1006           00042     BCF     MOTOR_ESQ
+0014   1086           00043     BCF     MOTOR_DIR
                       00044 
-0015   1683 1303      00045     BANKSEL PR2
-0017   307F           00046     MOVLW   D'127'
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0018   0092           00047     MOVWF   PR2
-                      00048     
-0019   1283 1303      00049     BANKSEL T2CON
-001B   3005           00050     MOVLW   B'00000101' 
-001C   0092           00051     MOVWF   T2CON
-                      00052 
-001D   1283 1303      00053     BANKSEL CCPR1L
-001F   3066           00054     MOVLW   B'01100110'
-0020   0095           00055     MOVWF   CCPR1L
-                      00056     
-                      00057   ; CONFIGURAÇAO INICIAL DOS MOTORES = ATIVO
-0021   1283 1303      00058     BANKSEL PORTB
-0023   1006           00059     BCF     MOTOR_ESQ
-0024   1086           00060     BCF     MOTOR_DIR
-                      00061 
-0025                  00062 MAIN:
-0025   1805           00063     BTFSC   SENSOR          ; SE FOR 1, QUER DIZER QUE A CURVA FOI DETECTADA.
-0026   2???           00064     CALL    ANALISE_CURVA
-0027   2???           00065     GOTO    MAIN    
-                      00066 
-0028                  00067 ANALISE_CURVA:
-0028   1885           00068     BTFSC   CHAVE
-0029   2???           00069     CALL    CURVA_DIREITA
-002A   1C85           00070     BTFSS   CHAVE
-002B   2???           00071     CALL    CURVA_ESQUERDA
-002C   0008           00072     RETURN
-                      00073 
-002D                  00074 CURVA_DIREITA:
-002D   1486           00075     BSF     MOTOR_DIR
-002E   2???           00076     CALL    DELAY
-002F   1086           00077     BCF     MOTOR_DIR
-0030   0008           00078     RETURN
-                      00079     
-0031                  00080 CURVA_ESQUERDA:
-0031   1406           00081     BSF     MOTOR_ESQ
-0032   2???           00082     CALL    DELAY
-0033   1006           00083     BCF     MOTOR_ESQ
-0034   0008           00084     RETURN
-                      00085 
-0035                  00086 DELAY:
-0035   306D           00087     MOVLW 0X6D
-0036   00A1           00088     MOVWF CONT1
-0037   305E           00089     MOVLW 0X5E
-0038   00A2           00090     MOVWF CONT2
-0039   301A           00091     MOVLW 0X1A
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  3
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-003A   00A3           00092     MOVWF CONT3
+0015                  00045 MAIN:
+0015   1805           00046     BTFSC   SENSOR          ; SE FOR 1, QUER DIZER QUE A CURVA FOI DETECTADA.
+0016   2???           00047     CALL    ANALISE_CURVA
+0017   2???           00048     GOTO    MAIN    
+                      00049 
+0018                  00050 ANALISE_CURVA:
+0018   1885           00051     BTFSC   CHAVE
+0019   2???           00052     CALL    CURVA_DIREITA
+001A   1C85           00053     BTFSS   CHAVE
+001B   2???           00054     CALL    CURVA_ESQUERDA
+001C   0008           00055     RETURN
+                      00056 
+001D                  00057 CURVA_DIREITA:
+001D   1486           00058     BSF     MOTOR_DIR
+001E   2???           00059     CALL    DELAY
+001F   1086           00060     BCF     MOTOR_DIR
+0020   0008           00061     RETURN
+                      00062     
+0021                  00063 CURVA_ESQUERDA:
+0021   1406           00064     BSF     MOTOR_ESQ
+0022   2???           00065     CALL    DELAY
+0023   1006           00066     BCF     MOTOR_ESQ
+0024   0008           00067     RETURN
+                      00068 
+0025                  00069 DELAY:
+0025   306D           00070     MOVLW 0X6D
+0026   00A1           00071     MOVWF CONT1
+0027   305E           00072     MOVLW 0X5E
+0028   00A2           00073     MOVWF CONT2
+0029   301A           00074     MOVLW 0X1A
+002A   00A3           00075     MOVWF CONT3
 Warning[207]: Found label after column 1. (LOOP)
-003B                  00093     LOOP
-003B   0BA1           00094     DECFSZ CONT1, 1
-003C   2???           00095     GOTO LOOP
-003D   0BA2           00096     DECFSZ CONT2, 1
-003E   2???           00097     GOTO LOOP
-003F   0BA3           00098     DECFSZ CONT3, 1
-0040   2???           00099     GOTO LOOP
-0041   0008           00100     RETURN
-                      00101 
+002B                  00076     LOOP
+002B   0BA1           00077     DECFSZ CONT1, 1
+002C   2???           00078     GOTO LOOP
+002D   0BA2           00079     DECFSZ CONT2, 1
+002E   2???           00080     GOTO LOOP
+002F   0BA3           00081     DECFSZ CONT3, 1
+0030   2???           00082     GOTO LOOP
+0031   0008           00083     RETURN
+                      00084 
 Warning[205]: Found directive in column 1. (END)
-                      00102 END
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  4
+                      00085 END
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  3
 
 
 SYMBOL TABLE
@@ -143,7 +119,7 @@ SYMBOL TABLE
 
 ADDEN                             00000003
 ADEN                              00000003
-ANALISE_CURVA                     00000028
+ANALISE_CURVA                     00000018
 BRGH                              00000002
 C                                 00000000
 C1INV                             00000004
@@ -175,12 +151,12 @@ CONT2                             00000022
 CONT3                             00000023
 CREN                              00000004
 CSRC                              00000007
-CURVA_DIREITA                     0000002D
-CURVA_ESQUERDA                    00000031
+CURVA_DIREITA                     0000001D
+CURVA_ESQUERDA                    00000021
 DATA_CP_OFF                       00003FFF
 DATA_CP_ON                        00003EFF
 DC                                00000001
-DELAY                             00000035
+DELAY                             00000025
 EEADR                             0000009B
 EECON1                            0000009C
 EECON2                            0000009D
@@ -194,7 +170,7 @@ GIE                               00000007
 INDF                              00000000
 INI                               00000005
 INTCON                            0000000B
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  5
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  4
 
 
 SYMBOL TABLE
@@ -204,8 +180,8 @@ INTE                              00000004
 INTEDG                            00000006
 INTF                              00000001
 IRP                               00000007
-LOOP                              0000003B
-MAIN                              00000025
+LOOP                              0000002B
+MAIN                              00000015
 MOTOR_DIR                         PORTB,1
 MOTOR_ESQ                         PORTB,0
 NOT_BO                            00000000
@@ -253,7 +229,7 @@ RBIF                              00000000
 RCIE                              00000005
 RCIF                              00000005
 RCREG                             0000001A
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  6
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  5
 
 
 SYMBOL TABLE
@@ -312,7 +288,7 @@ TRISA7                            00000007
 TRISB                             00000086
 TRISB0                            00000000
 TRISB1                            00000001
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  7
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  6
 
 
 SYMBOL TABLE
@@ -371,7 +347,7 @@ _IDLOC0                           00002000
 _IDLOC1                           00002001
 _IDLOC2                           00002002
 _IDLOC3                           00002003
-MPASM 5.84                          CODE.ASM   10-2-2019  18:26:14         PAGE  8
+MPASM 5.84                          CODE.ASM   10-11-2019  12:26:22         PAGE  7
 
 
 SYMBOL TABLE
@@ -399,6 +375,6 @@ __16F628A                         00000001
 
 Errors   :     0
 Warnings :     4 reported,     0 suppressed
-Messages :     3 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
 
 

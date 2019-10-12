@@ -1,0 +1,39 @@
+
+hex2ascii
+	addwf    PCL,f
+	retlw    "0"   ;ascii 0
+	retlw    "1"   ;ascii 1
+	retlw    "2"   ;ascii 2
+	retlw    "3"   ;ascii 3
+	retlw    "4"   ;ascii 4
+	retlw    "5"   ;ascii 5
+	retlw    "6"   ;ascii 6
+	retlw    "7"   ;ascii 7
+	retlw    "8"   ;ascii 8
+	retlw    "9"   ;ascii 9
+	retlw    "A"   ;ascii A
+	retlw    "B"   ;ascii B
+	retlw    "C"   ;ascii C
+	retlw    "D"   ;ascii D
+	retlw    "E"   ;ascii E
+	retlw    "F"   ;ascii F
+
+
+DECOD_DISPLAY: 
+  addwf    PCL,f
+  RETLW    B'00111111'   ; número 0 
+  RETLW    B'00000110'   ; número 1 
+  RETLW    B'01011011'   ; número 2 
+  RETLW    B'01001111'   ; número 3 
+  RETLW    B'01100110'   ; número 4 
+  RETLW    B'01101101'   ; número 5 
+  RETLW    B'01111101'   ; número 6 
+  RETLW    B'00000111'   ; número 7 
+  RETLW    B'01111111'   ; número 8 
+  RETLW    B'01100111'   ; número 9 
+  RETLW    B'01110111'   ; dígito A 
+  RETLW    B'01111100'   ; dígito B 
+  RETLW    B'00111001'   ; dígito C 
+  RETLW    B'01011110'   ; dígito D  
+  RETLW    B'01111001'   ; dígito E 
+  RETLW    B'01110001'   ; dígito F 
