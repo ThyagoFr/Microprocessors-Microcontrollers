@@ -1,8 +1,8 @@
-; Universidade Federal do Ceará
-; Departamento de Engenharia Elétrica
+; Universidade Federal do CearÃ¡
+; Departamento de Engenharia ElÃ©trica
 ; Disciplina : Microprocessadores
 ; Aluno : Thyago Freitas da Silva
-; Parte I do Projeto de Laboratório
+; Parte I do Projeto de LaboratÃ³rio
     
 #INCLUDE <P16F628A.INC>
 
@@ -14,10 +14,6 @@
     
 #DEFINE	 CHAVE_MSB   PORTA,0
 #DEFINE	 CHAVE_LSB   PORTA,1
-    
-
-#DEFINE  CONTROLE2   PORTB,2
-#DEFINE	 CONTROLE1   PORTB,3
     
 #DEFINE	 LED	     PORTB,4
     
@@ -47,22 +43,15 @@ INI:
     MOVLW   0x00
     MOVWF   TRISB
     
-  ; CONFIGURAÇAO INICIAL DOS MOTORES = ATIVO
-    ;BANKSEL PORTB
-    ;BSF	    MOTOR_ESQ
-    ;BSF	    MOTOR_DIR
-    
-GIROINICIAL: 
-    ; TRAVA MOTOR DA ESQUERDA E DEIXA O DA DIREITA,ASSIM O CARRO GIRA PRA ESQUERDA
+  ; CONFIGURAÃ‡AO INICIAL DOS MOTORES = ATIVO
     BANKSEL PORTB
+    BCF	    MOTOR_ESQ
+    BCF	    MOTOR_DIR
+    
+GIROINICIAL:                ; TRAVA MOTOR DA ESQUERDA E DEIXA O DA DIREITA,ASSIM O CARRO GIRA PRA ESQUERDA
     BSF	    MOTOR_ESQ
-    BCF	    CONTROLE1
     CALL    DELAY
     BCF	    MOTOR_ESQ
-    BSF	    CONTROLE1
-    BCF	    MOTOR_DIR
-    BSF	    CONTROLE2
-    GOTO    MAIN_1
     
 MAIN_1:
     BTFSS   SENSOR1          ; SE FOR 1, QUER DIZER QUE UMA LINHA FOI DETECTADA.
@@ -105,7 +94,7 @@ ESPERAR_FIM:
 ACENDER_LED:
     BANKSEL PORTA
     BSF	    LED
-    BANKSEL PORTB
+    BANKSEL  PORTB
     BSF	    MOTOR_DIR
     BSF	    MOTOR_ESQ
     GOTO    LOOP_INFINITO
