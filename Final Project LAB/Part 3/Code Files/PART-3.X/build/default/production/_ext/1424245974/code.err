@@ -1,0 +1,6 @@
+Warning[205] ..\..\..\PART 4\CODE FILES\PART-4.X\CODE.ASM 22 : Found directive in column 1. (ORG)
+Warning[205] ..\..\..\PART 4\CODE FILES\PART-4.X\CODE.ASM 25 : Found directive in column 1. (ORG)
+Message[302] ..\..\..\PART 4\CODE FILES\PART-4.X\CODE.ASM 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\..\..\PART 4\CODE FILES\PART-4.X\CODE.ASM 42 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] ..\..\..\PART 4\CODE FILES\PART-4.X\CODE.ASM 130 : Found label after column 1. (LOOP)
+Warning[205] ..\..\..\PART 4\CODE FILES\PART-4.X\CODE.ASM 139 : Found directive in column 1. (END)
