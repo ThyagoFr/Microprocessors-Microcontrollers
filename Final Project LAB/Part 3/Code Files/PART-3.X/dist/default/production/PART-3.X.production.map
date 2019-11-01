@@ -1,0 +1,64 @@
+MPLINK 5.09, LINKER
+Linker Map File - Created Mon Oct 28 17:10:25 2019
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000004    program   0x0000a8
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000004    0x000057      
+            87 out of 2182 program addresses used, program memory utilization is 3%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+          ANALISE_CURVA_0   0x00001d    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+          ANALISE_CURVA_1   0x000022    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+    ANALISE_CURVA_FINAL_0   0x000027    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+    ANALISE_CURVA_FINAL_1   0x00002a    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+          ANALISE_CURVA_X   0x000019    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            CURVA_DIREITA   0x00003b    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+           CURVA_ESQUERDA   0x000043    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            CURVA_FINAL_0   0x00002d    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            CURVA_FINAL_1   0x00002f    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                    DELAY   0x00004b    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+              ESPERAR_FIM   0x000031    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                      INI   0x000005    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                     LOOP   0x000051    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            LOOP_INFINITO   0x00003a    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                   MAIN_X   0x000014    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                    PARAR   0x000034    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      INI   0x000005    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                   MAIN_X   0x000014    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+          ANALISE_CURVA_X   0x000019    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+          ANALISE_CURVA_0   0x00001d    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+          ANALISE_CURVA_1   0x000022    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+    ANALISE_CURVA_FINAL_0   0x000027    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+    ANALISE_CURVA_FINAL_1   0x00002a    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            CURVA_FINAL_0   0x00002d    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            CURVA_FINAL_1   0x00002f    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+              ESPERAR_FIM   0x000031    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                    PARAR   0x000034    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            LOOP_INFINITO   0x00003a    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+            CURVA_DIREITA   0x00003b    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+           CURVA_ESQUERDA   0x000043    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                    DELAY   0x00004b    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+                     LOOP   0x000051    program     static ..\..\..\Part 4\Code Files\PART-4.X\code.asm
+
+

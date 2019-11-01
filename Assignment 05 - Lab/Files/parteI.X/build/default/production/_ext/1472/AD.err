@@ -1,0 +1,7 @@
+Warning[205] ..\AD.ASM 8 : Found directive in column 1. (ORG)
+Warning[205] ..\AD.ASM 11 : Found directive in column 1. (ORG)
+Message[302] ..\AD.ASM 17 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\AD.ASM 21 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\AD.ASM 25 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] ..\AD.ASM 50 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] ..\AD.ASM 75 : Found directive in column 1. (END)
