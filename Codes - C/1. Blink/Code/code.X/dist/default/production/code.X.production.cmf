@@ -13,9 +13,9 @@
 %PSECTS
 $dist/default/production\code.X.production.o
 cinit CODE 0 7FE 7FE 2 2
-maintext CODE 0 7D9 7D9 25 2
+maintext CODE 0 7D5 7D5 29 2
 cstackCOMMON COMMON 1 70 70 3 1
-$C:\Users\thyag\AppData\Local\Temp\sc3c.o
+$C:\Users\thyag\AppData\Local\Temp\s2kg.o
 end_init CODE 0 0 0 1 2
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
@@ -29,11 +29,11 @@ RAM 120-14F 1
 BANK0 20-6F 1
 BANK1 A0-EF 1
 BANK2 120-14F 1
-CONST 1-7D8 2
-ENTRY 1-7D8 2
+CONST 1-7D4 2
+ENTRY 1-7D4 2
 IDLOC 2000-2003 2
 STACK 20-6F 1
-CODE 1-7D8 2
+CODE 1-7D4 2
 SFR0 0-1F 1
 SFR1 80-9F 1
 SFR2 100-11F 1
@@ -41,8 +41,8 @@ SFR3 180-1EF 1
 COMMON 73-7D 1
 CONFIG 2007-2007 2
 EEDATA 2100-217F 2
-STRCODE 1-7D8 2
-STRING 1-7D8 2
+STRCODE 1-7D4 2
+STRING 1-7D4 2
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -57,18 +57,18 @@ STRING 1-7D8 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\code.X.production.o
-7FE cinit CODE >246:C:\Users\thyag\AppData\Local\Temp\sc3c.s
-7FE cinit CODE >249:C:\Users\thyag\AppData\Local\Temp\sc3c.s
-7FE cinit CODE >255:C:\Users\thyag\AppData\Local\Temp\sc3c.s
-7FE cinit CODE >257:C:\Users\thyag\AppData\Local\Temp\sc3c.s
-7FF cinit CODE >258:C:\Users\thyag\AppData\Local\Temp\sc3c.s
-7D9 maintext CODE >11:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
-7D9 maintext CODE >12:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
-7DC maintext CODE >13:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
-7DC maintext CODE >14:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
-7DF maintext CODE >15:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
-7EC maintext CODE >16:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
-7EF maintext CODE >17:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\code.X\main.c
+7FE cinit CODE >248:C:\Users\thyag\AppData\Local\Temp\s2kg.s
+7FE cinit CODE >251:C:\Users\thyag\AppData\Local\Temp\s2kg.s
+7FE cinit CODE >257:C:\Users\thyag\AppData\Local\Temp\s2kg.s
+7FE cinit CODE >259:C:\Users\thyag\AppData\Local\Temp\s2kg.s
+7FF cinit CODE >260:C:\Users\thyag\AppData\Local\Temp\s2kg.s
+7D5 maintext CODE >11:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
+7D5 maintext CODE >12:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
+7D9 maintext CODE >13:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
+7DC maintext CODE >15:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
+7DF maintext CODE >16:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
+7EC maintext CODE >17:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
+7EF maintext CODE >18:C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Codes - C\1. Blink\Code\code.X\main.c
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -88,27 +88,26 @@ __Hspace_2 0 0 ABS 0 - -
 __Hspace_3 0 0 ABS 0 - -
 __Heeprom_data 0 0 EEDATA 3 eeprom_data -
 __Hstrings 0 0 ABS 0 strings -
-___sp 0 0 STACK 2 stack C:\Users\thyag\AppData\Local\Temp\sc3c.o
-_main FB2 0 CODE 0 maintext dist/default/production\code.X.production.o
+___sp 0 0 STACK 2 stack C:\Users\thyag\AppData\Local\Temp\s2kg.o
+_main FAA 0 CODE 0 maintext dist/default/production\code.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\code.X.production.o
-start 0 0 CODE 0 init C:\Users\thyag\AppData\Local\Temp\sc3c.o
+start 0 0 CODE 0 init C:\Users\thyag\AppData\Local\Temp\s2kg.o
 __size_of_main 0 0 ABS 0 - dist/default/production\code.X.production.o
 __Hpowerup 0 0 CODE 0 powerup -
-intlevel0 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\sc3c.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\sc3c.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\sc3c.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\sc3c.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\sc3c.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\sc3c.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\s2kg.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\s2kg.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\s2kg.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\s2kg.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\s2kg.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\thyag\AppData\Local\Temp\s2kg.o
 wtemp0 7E 0 ABS 0 - dist/default/production\code.X.production.o
 __Hfunctab 0 0 ENTRY 0 functab -
 __Hclrtext 0 0 ABS 0 clrtext -
 __Lmaintext 0 0 ABS 0 maintext -
-___stackhi 0 0 ABS 0 - C:\Users\thyag\AppData\Local\Temp\sc3c.o
-___stacklo 0 0 ABS 0 - C:\Users\thyag\AppData\Local\Temp\sc3c.o
+___stackhi 0 0 ABS 0 - C:\Users\thyag\AppData\Local\Temp\s2kg.o
+___stacklo 0 0 ABS 0 - C:\Users\thyag\AppData\Local\Temp\s2kg.o
 start_initialization FFC 0 CODE 0 cinit dist/default/production\code.X.production.o
-_TRISA0 428 0 ABS 0 - dist/default/production\code.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\thyag\AppData\Local\Temp\sc3c.o
+___int_sp 0 0 STACK 2 stack C:\Users\thyag\AppData\Local\Temp\s2kg.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -126,6 +125,7 @@ __Lbank3 0 0 BANK3 1 bank3 -
 __Lcinit FFC 0 CODE 0 cinit -
 __Lidloc 0 0 IDLOC 0 idloc -
 __Lstack 0 0 STACK 2 stack -
+_PORTAbits 5 0 ABS 0 - dist/default/production\code.X.production.o
 __Habs1 0 0 ABS 0 abs1 -
 __Hcode 0 0 ABS 0 code -
 __Hinit 0 0 CODE 0 init -
@@ -143,14 +143,13 @@ __Lsfr2 0 0 ABS 0 sfr2 -
 __Lsfr3 0 0 ABS 0 sfr3 -
 __Ltext 0 0 ABS 0 text -
 __HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
-_RA0 28 0 ABS 0 - dist/default/production\code.X.production.o
 __S0 800 0 ABS 0 - -
 __S1 73 0 ABS 0 - -
 __S2 0 0 ABS 0 - -
 __S3 0 0 ABS 0 - -
 __Lintentry 0 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\thyag\AppData\Local\Temp\sc3c.o
-__pmaintext FB2 0 CODE 0 maintext dist/default/production\code.X.production.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\thyag\AppData\Local\Temp\s2kg.o
+__pmaintext FAA 0 CODE 0 maintext dist/default/production\code.X.production.o
 __Lcommon 0 0 ABS 0 common -
 __Lconfig 0 0 CONFIG 0 config -
 __Lspace_0 0 0 ABS 0 - -
@@ -172,6 +171,8 @@ __Lclrtext 0 0 ABS 0 clrtext -
 __pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/production\code.X.production.o
 __Hend_init 2 0 CODE 0 end_init -
 __end_of_main FFC 0 CODE 0 maintext dist/default/production\code.X.production.o
+_CMCON 1F 0 ABS 0 - dist/default/production\code.X.production.o
+_TRISA 85 0 ABS 0 - dist/default/production\code.X.production.o
 __Hram 0 0 ABS 0 ram -
 __Lram 0 0 ABS 0 ram -
 __initialization FFC 0 CODE 0 cinit dist/default/production\code.X.production.o
@@ -201,7 +202,7 @@ __initialization FFC 0 CODE 0 cinit dist/default/production\code.X.production.o
 # All other numeric quantities are in decimal.
 %SEGMENTS
 cinit 0 7FE FFC 2 2
-maintext 0 7D9 FB2 25 2
+maintext 0 7D5 FAA 29 2
 cstackCOMMON 1 70 70 3 1
 reset_vec 0 0 0 1 2
 # OTES Section

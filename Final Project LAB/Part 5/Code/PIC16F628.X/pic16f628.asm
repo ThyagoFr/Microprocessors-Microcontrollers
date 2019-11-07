@@ -4,7 +4,7 @@
 ; Aluno : Thyago Freitas da Silva
 ; Parte V do Projeto de Laboratório
     
-#INCLUDE <P16F628.INC>
+#INCLUDE <P16F628A.INC>
 
 #DEFINE	 CHAVE_MSB   PORTA,0
 #DEFINE	 CHAVE_LSB   PORTA,1
@@ -43,7 +43,10 @@ INI:
     
   ; CONFIGURACAO INICIAL DOS MOTORES = ATIVO
     BANKSEL PORTB
-    CLRF    PORTB    
+    CLRF    PORTB  
+    
+    BANKSEL PORTA
+    BSF	    PORTA,3
        
 MAIN_X:
     BANKSEL PORTA

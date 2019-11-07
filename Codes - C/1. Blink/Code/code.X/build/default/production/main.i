@@ -1008,12 +1008,13 @@ extern __bank0 __bit __timeout;
 
 
 void main(void) {
-    TRISA0 = 0;
+    CMCON = 0x07;
+    TRISA = 0x00;
     while(1){
-        RA0 = 0;
-        _delay((unsigned long)((5000)*(10000000/4000.0)));
-        RA0 = 1;
-        _delay((unsigned long)((5000)*(10000000/4000.0)));
+        PORTAbits.RA0 = 0;
+        _delay((unsigned long)((5000)*(4000000/4000.0)));
+        PORTAbits.RA0 = 1;
+        _delay((unsigned long)((5000)*(4000000/4000.0)));
     }
     return;
 }

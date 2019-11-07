@@ -1,0 +1,303 @@
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+PARTE 1
+
+ORG 100H
+JMP INI
+X DB 235
+
+INI:
+MOV AL,[X]
+CALL IMPRIME_2D
+.EXIT  
+
+IMPRIME_2D: 
+
+; EM UMA DIVISAO ENTRE BYTES
+; AL = AX/OPERANDO (NUMERO INTEIRO)
+; AH = RESTO DA DIVISAO     
+
+; NO CASO DE 23
+; AL = 23
+; DL = 10, AL = AX(AH:AL),ONDE AH = 0 E AL = 23
+; AL = 23/10 = 2
+; AH = 3
+; AGORA TEMOS OS DIGITOS DO NUMERO,BASTA PRINTAR NA ORDEM CORRETA   
+
+; NO CASO DE 3 DIGITOS,DIVIDE POR 100,DEPOIS POR 10
+
+MOV AH,0
+MOV DL,100
+DIV DL
+MOV DL,AL   ; AL = 2, AH = 23 = CL
+MOV CL,AH 
+
+
+; CHAMANDO INTERRUPCAO PARA PRINTAR PRIMEIRO DIGITO
+MOV AH,2
+ADD DL,48
+INT 21H 
+
+; SEPARANDO O SEGUNDO DIGITO
+MOV AH,0
+MOV DL,10
+MOV AL,CL    ;AX = 23
+DIV DL       ;AL = 23/10 = 2, AH = 3
+MOV DL,AL
+MOV CL,AH 
+  
+; CHAMANDO INTERRUPCAO PARA PRINTAR SEGUNDO DIGITO
+MOV AH,2
+ADD DL,48
+INT 21H 
+
+; CHAMANDO INTERRUPCAO PARA PRINTAR TERCEIRO DIGITO
+MOV DL,CL 
+ADD DL,48
+INT 21H
+
+RET
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+PARTE 2
+
+ORG 100H
+JMP INI 
+
+;LABELS PARA MOSTRAR "BONITO"
+LABEL1 DB "TEMPO = $"
+LABEL2 DB "DIST. = $"
+QUEBRA_LIN DB 0X0D,0X0A,'$'
+
+; VARIAVEIS
+TEMPO DW 3790
+DIST DW 9920 
+
+
+INI:  
+
+; MOSTRAR A STRING ARMAZENADA NO LABEL1
+LEA DX,LABEL1
+MOV AH,9
+INT 21H 
+
+; PASSAR O VALOR ARMAZENADO DEM TEMPO PARA AX PARA PODER PRINTALO
+MOV AX,[TEMPO]
+CALL IMPRIME_4D
+
+; MOSTRAR A STRING ARMAZENADA NO QUEBRA_LIN (SAO OS CODIGOS PARA A QUEBRA DE LINHA)
+LEA DX,QUEBRA_LIN
+MOV AH,9
+INT 21H 
+
+
+; MOSTRAR A STRING ARMAZENADA NO LABEL2
+LEA DX,LABEL2
+MOV AH,9
+INT 21H  
+
+ 
+; PASSAR O VALOR ARMAZENADO DEM DIST PARA AX PARA PODER PRINTALO
+MOV AX,[DIST]
+CALL IMPRIME_4D 
+
+
+.EXIT   
+
+; FUNCAO PARA PRINTAR OS 4 DIGITOS
+; NO CASO DE WORDS
+; TEMOS QUE : AX = (DX:AX)/OPERANDO E DX = RESTO DA DIVISAO
+; EXEMPLO : AX = 1123,DX = 0, OPERANDO CX = 1000,
+; AX = 1123/1000 -> AX = 1, DX 123
+
+IMPRIME_4D: 
+
+; ENTAO COMO TEMOS 4 DIGITOS,E PRECISO DIVIDIR POR 1000,DPS 100,DPS 10
+; PARA PEGAR TODOS OS DIGITOS.
+
+MOV DX,0      ; ZERANDO DX
+MOV CX,1000   ; AX = 3798, AX/1000 -> AX = 3, DX = 798, O RESULTADO DE AX ESTA EM AL
+DIV CX 
+PUSH DX       ; SALVANDO NA PILHA O DX = 798 , POIS O REGISTRADOR SERA MODIFICADO
+MOV DL,AL
+ 
+              ; INTERRUPCAO PARA PRINTAR NA TELA O CONTEUDO DE DL
+MOV AH,2
+ADD DL,48
+INT 21H 
+       
+POP DX        ; RETIRANDO O VALOR ANTIGO DA PILHA E BOTANDO NOVAMENTE EM DX
+      
+MOV AX,DX     ; MOVER PARA AX O VALOR DE DX,NO CASO EXEMPLO -> AX = 798
+MOV DX,0      ; ZERANDO DX
+MOV CX,100    ; AX = 798, AX/100 -> AX = 7, DX = 98, O RESULTADO DE AX ESTA EM AL
+DIV CX 
+PUSH DX       ; SALVANDO NA PILHA O DX = 798 , POIS O REGISTRADOR SERA MODIFICADO
+
+MOV DL,AL
+
+              ; INTERRUPCAO PARA PRINTAR NA TELA O CONTEUDO DE DL
+MOV AH,2
+ADD DL,48
+INT 21H  
+
+POP DX        ; RETIRANDO O VALOR ANTIGO DA PILHA E BOTAND NOVAMENTE EM DX
+      
+MOV AX,DX     ; MOVER PARA AX O VALOR DE DX,NO CASO EXEMPLO -> AX = 798
+MOV DX,0      ; ZERANDO DX
+MOV CX,10     ; AX = 98, AX/10 -> AX = 9, DX = 8, O RESULTADO DE AX ESTA EM AL
+DIV CX 
+PUSH DX       ; SALVANDO NA PILHA O DX = 8 , POIS O REGISTRADOR SERA MODIFICADO
+
+MOV DL,AL
+
+              ; INTERRUPCAO PARA PRINTAR NA TELA O CONTEUDO DE DL
+MOV AH,2
+ADD DL,48
+INT 21H 
+ 
+POP DX        ; O ULTIMO DIGITO JA ESTA EM DL,BASTA SOMAR 48 E PRINTAR
+ADD DL,48
+INT 21H
+
+RET
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+PARTE 3
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+PARTE 4
+
+Endereços :
+vec1 = 0700:0102
+vec2 = 0700:0106
+vec3 = 0700:010A
+
+Valores : [4,7,8,7], ou seja, a soma componente a componente dos dois vetores.
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+PARTE 5
+
+ORG    100H
+JMP    START                         ; TRECHO DE DECLARACAO DAS VARIAVEIS
+VEC1   DB 1, 2, 5, 6
+VEC2   DB 3, 5, 3, 1
+VEC3   DB ?, ?, ?, ?
+LABEL1 DB "Vetor 1 = [$"
+LABEL2 DB "Vetor 2 = [$"
+LABEL3 DB "Soma    = [$"
+
+QUEBRA_LINHA db ']',0x0d,0x0a,'$'
+
+START: 
+LEA SI, VEC1
+LEA BX, VEC2
+LEA DI, VEC3
+MOV CX, 4 
+            
+; -------------------------------------------
+MOSTRARVETOR1:
+LEA DX,LABEL1
+MOV AH,9
+INT 21h
+
+LOOPVETOR1:  
+
+; MOSTRA O NUMERO
+MOV DL,[SI] 
+ADD DL,48
+MOV AH,2
+INT 21h      
+
+;MOSTRA ESPACO ENTRE VALORES DO VETOR
+MOV DL," "
+INT 21h
+
+; INCREMENTA
+INC SI
+LOOP LOOPVETOR1
+
+; QUEBRA LINHA
+LEA DX,QUEBRA_LINHA
+MOV AH,9
+INT 21h 
+
+; -------------------------------------------
+
+MOV CX,4 
+
+MOSTRARVETOR2:
+LEA DX,LABEL2
+MOV AH,9
+INT 21h
+
+LOOPVETOR2:  
+
+; MOSTRA O NUMERO
+MOV DL,[BX] 
+ADD DL,48
+MOV AH,2
+INT 21h      
+
+;MOSTRA ESPACO ENTRE VALORES DO VETOR
+MOV DL," "
+INT 21h
+
+; INCREMENTA
+INC BX
+LOOP LOOPVETOR2
+
+; QUEBRA LINHA
+LEA DX,QUEBRA_LINHA
+MOV AH,9
+INT 21h
+
+; -------------------------------------------   
+; SOMAR COMPONENTES DO VETOR
+
+LEA SI, VEC1
+LEA BX, VEC2
+LEA DI, VEC3
+MOV CX, 4
+
+MOSTRARSOMA:
+LEA DX,LABEL3
+MOV AH,9
+INT 21h
+
+SUM:
+MOV AL, [SI]
+ADD AL, [BX]
+MOV [DI], AL
+
+;MOSTRA RESULTADO DA SOMA
+MOV DL,[DI]
+ADD DL,48
+MOV AH,2
+INT 21h 
+
+; MOSTRA ESPACO
+MOV DL," "
+INT 21h
+
+; INCREMENTA "PONTEIROS"
+
+INC SI
+INC BX
+INC DI
+LOOP SUM
+
+LEA DX,QUEBRA_LINHA
+MOV AH,9
+INT 21h
+
+.EXIT
+
