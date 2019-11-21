@@ -1,0 +1,193 @@
+#start=thermometer.exe#
+org  100h
+
+START:
+IN   AL,125   
+                    
+CALL IMPRIME_CELSIUS
+CALL IMPRIME_FORMATACAO_C
+CALL CONVERTE
+CALL IMPRIME_FORMATACAO_F
+CALL QUEBRA_LINHA
+
+CMP  AL,22
+JL   LOW
+CMP  AL,55
+JLE  OK
+JG   HIGH
+
+LOW:
+MOV  AL,1
+OUT  127,AL
+JMP  OK  
+
+HIGH:
+MOV  AL,0
+OUT  127,AL
+OK:
+
+JMP  START
+
+
+QUEBRA_LINHA:
+PUSH AX
+MOV DL,0x0d
+MOV AH,2
+INT 21h
+POP AX
+RET
+
+CONVERTE:
+PUSH AX
+MOV DL,9
+MUL DL
+MOV DL,5
+DIV DL
+ADD AL,32
+CALL IMPRIME_FAHRENHEIT
+POP AX
+RET
+
+IMPRIME_FORMATACAO_C:
+PUSH AX
+MOV DL,0xF8
+MOV AH,2
+INT 21h
+MOV DL,"C"
+MOV AH,2
+INT 21h
+MOV  DL,"("
+INT  21h 
+POP AX
+RET
+
+IMPRIME_FORMATACAO_F:
+PUSH AX
+MOV DL,0xF8
+MOV AH,2
+INT 21h
+MOV DL,"F"
+MOV AH,2
+INT 21h
+MOV  DL,")"
+INT  21h  
+POP AX
+RET
+   
+
+IMPRIME_CELSIUS:
+PUSH AX
+MOV  AH,0
+MOV  DL,10
+DIV  DL
+MOV  DL,AL
+MOV  CL,AH
+MOV  AH,2
+ADD  DL,48
+INT  21h
+MOV  DL,CL
+ADD  DL,48
+INT  21h
+POP  AX
+RET 
+
+
+IMPRIME_FAHRENHEIT:
+PUSH AX
+MOV AH,0
+MOV DL,100
+DIV DL
+MOV DL,AL  
+MOV CL,AH 
+MOV AH,2
+ADD DL,48
+INT 21H 
+MOV AH,0
+MOV DL,10
+MOV AL,CL    
+DIV DL       
+MOV DL,AL
+MOV CL,AH  
+MOV AH,2
+ADD DL,48
+INT 21H 
+MOV DL,CL 
+ADD DL,48
+INT 21H
+POP AX
+RET
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------
+#start=thermometer.exe#
+org 100h 
+label1 db "MIN = $"
+label2 db "MAX = $"
+label3 db 0x0d,0x0a,'$'
+JMP LER
+
+LER:
+lea dx,label1
+mov ah,9
+int 21h
+mov ah,1
+int 21h
+sub al,48
+mov dl,10
+mul dl
+mov dl,al
+mov ah,1
+int 21h
+sub al,48
+add al,dl
+mov ah,0
+MOV CL,AL
+
+lea dx,label3
+mov ah,9
+int 21h 
+
+lea dx,label2
+mov ah,9
+int 21h
+mov ah,1
+int 21h
+sub al,48
+mov dl,10
+mul dl
+mov dl,al
+mov ah,1
+int 21h
+sub al,48
+add al,dl
+mov ah,0
+MOV BL,AL
+
+start: 
+in AL,125
+cmp AL,CL
+jl low
+cmp AL,BL
+jle ok
+jg high
+
+low:
+mov AL,1
+out 127,AL
+jmp ok  
+
+high:
+mov AL,0
+out 127,AL   
+
+ok:
+jmp start
+
+-------------------------------------------------------------------------------------
+
