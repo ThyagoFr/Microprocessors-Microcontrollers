@@ -1,0 +1,82 @@
+MPLINK 5.09, LINKER
+Linker Map File - Created Thu Dec 05 12:33:07 2019
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000004    program   0x00015a
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000004    0x0000b0      
+            176 out of 2182 program addresses used, program memory utilization is 8%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                CHECA_FIM   0x000052    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+               CONFIG_INI   0x000005    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                CURVA_180   0x000094    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+            CURVA_DIREITA   0x000076    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+         CURVA_DIREITA_90   0x000084    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+           CURVA_ESQUERDA   0x00007d    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+        CURVA_ESQUERDA_90   0x00008c    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                    DELAY   0x0000a3    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+               ESPERA_FIM   0x000047    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                      FIM   0x000051    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+            INTERMEDIARIO   0x000023    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                     LOOP   0x0000a9    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+              LOOP_PARTE1   0x000018    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+          LOOP_PARTE2_LSB   0x000038    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+          LOOP_PARTE2_MSB   0x000029    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+               PARA_RODAS   0x00009c    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+             SEGUE_FRENTE   0x00006f    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+  TESTE_SENSORES_INTERNOS   0x000061    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_ENCRUZILHADA   0x00004b    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_ENCRUZILHADA_LSB   0x00003e    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_ENCRUZILHADA_MSB   0x00002f    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+ TESTE_SENSOR_EXT_DIREITO   0x000057    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_EXT_ESQUERDO   0x00005c    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_INTERNO_DIREITO   0x000067    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_INTERNO_ESQUERDO   0x00006b    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               CONFIG_INI   0x000005    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+              LOOP_PARTE1   0x000018    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+            INTERMEDIARIO   0x000023    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+          LOOP_PARTE2_MSB   0x000029    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_ENCRUZILHADA_MSB   0x00002f    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+          LOOP_PARTE2_LSB   0x000038    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_ENCRUZILHADA_LSB   0x00003e    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+               ESPERA_FIM   0x000047    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_ENCRUZILHADA   0x00004b    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                      FIM   0x000051    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                CHECA_FIM   0x000052    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+ TESTE_SENSOR_EXT_DIREITO   0x000057    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_EXT_ESQUERDO   0x00005c    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+  TESTE_SENSORES_INTERNOS   0x000061    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_INTERNO_DIREITO   0x000067    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+TESTE_SENSOR_INTERNO_ESQUERDO   0x00006b    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+             SEGUE_FRENTE   0x00006f    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+            CURVA_DIREITA   0x000076    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+           CURVA_ESQUERDA   0x00007d    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+         CURVA_DIREITA_90   0x000084    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+        CURVA_ESQUERDA_90   0x00008c    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                CURVA_180   0x000094    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+               PARA_RODAS   0x00009c    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                    DELAY   0x0000a3    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+                     LOOP   0x0000a9    program     static C:\Users\thyag\OneDrive\Documentos\GitHub\Microprocessors-Microcontrollers\Final Project LAB\Final\Code\ASMVERSION.X\mainASM.asm
+
+

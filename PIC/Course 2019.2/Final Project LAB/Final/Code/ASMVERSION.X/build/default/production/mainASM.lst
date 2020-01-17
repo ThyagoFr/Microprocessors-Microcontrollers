@@ -1,0 +1,584 @@
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #INCLUDE <P16F628A.INC>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Mar 17 2019
+                      00005 ;  MPASM PIC16F628A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2019 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00386         LIST
+                      00002     
+                      00003 ;======================== DEFININDO AS PORTAS DOS SENSORES, MOTORES E CHAVES ===========================
+                            =======
+                      00004 #DEFINE MOTORESQUERDO1       PORTB,0
+                      00005 #DEFINE MOTORESQUERDO2       PORTB,1
+                      00006 #DEFINE MOTORDIREITO1        PORTB,2
+                      00007 #DEFINE MOTORDIREITO2        PORTB,3
+                      00008 #DEFINE LED_FINAL            PORTB,5
+                      00009 #DEFINE SENSORESQUERDO_EXT   PORTA,0
+                      00010 #DEFINE SENSORESQUERDO_INT   PORTA,7    
+                      00011 #DEFINE SENSORDIREITO_EXT    PORTA,3
+                      00012 #DEFINE SENSORDIREITO_INT    PORTA,2
+                      00013 #DEFINE CHAVE_MSB            PORTB,6
+                      00014 #DEFINE CHAVE_LSB            PORTB,7
+                      00015     
+                      00016 ;======================== VARIAVEIS DELAY ==============================================================
+                            =======
+  00000022            00017 DCounter1 EQU 0X22
+  00000023            00018 DCounter2 EQU 0X23
+  00000024            00019 DCounter3 EQU 0X24
+  00000025            00020 CONTADOR  EQU 0X25
+                      00021     
+Warning[205]: Found directive in column 1. (ORG)
+                      00022 ORG     0x00
+0000   2???           00023     GOTO    CONFIG_INI
+Warning[205]: Found directive in column 1. (ORG)
+                      00024 ORG     0x04
+0004   0009           00025     RETFIE
+                      00026     
+0005                  00027 CONFIG_INI:
+0005   1283 1303      00028     BANKSEL CMCON
+0007   3007           00029     MOVLW   0x07
+0008   009F           00030     MOVWF   CMCON
+                      00031     
+0009   1683 1303      00032     BANKSEL TRISA
+000B   30BF           00033     MOVLW   B'10111111'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   0085           00034     MOVWF   TRISA
+                      00035     
+000D   1683 1303      00036     BANKSEL TRISB
+000F   30C0           00037     MOVLW   B'11000000'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0010   0086           00038     MOVWF   TRISB
+                      00039     
+0011   1283 1303      00040     BANKSEL CONTADOR
+0013   3003           00041     MOVLW   B'00000011'
+0014   00A5           00042     MOVWF   CONTADOR
+                      00043     
+0015   0185           00044     CLRF    PORTA
+0016   0186           00045     CLRF    PORTB
+0017   2???           00046     CALL    SEGUE_FRENTE
+                      00047     
+0018                  00048 LOOP_PARTE1:
+0018   2???           00049     CALL    SEGUE_FRENTE
+0019   2???           00050     CALL    TESTE_SENSOR_INTERNO_DIREITO
+001A   2???           00051     CALL    TESTE_SENSOR_INTERNO_ESQUERDO
+001B   2???           00052     CALL    TESTE_SENSORES_INTERNOS
+001C   2???           00053     CALL    TESTE_SENSOR_EXT_DIREITO
+001D   2???           00054     CALL    TESTE_SENSOR_EXT_ESQUERDO
+001E   2???           00055     CALL    PARA_RODAS
+001F   18A5           00056     BTFSC   CONTADOR,1
+0020   2???           00057     GOTO    LOOP_PARTE1
+0021   2???           00058     CALL    CHECA_FIM
+0022   2???           00059     GOTO    LOOP_PARTE1
+                      00060 
+0023                  00061 INTERMEDIARIO:
+0023   2???           00062     CALL    PARA_RODAS
+0024   2???           00063     CALL    CURVA_180
+0025   1283 1303      00064     BANKSEL CONTADOR
+0027   3003           00065     MOVLW   B'00000011'
+0028   00A5           00066     MOVWF   CONTADOR
+                      00067     
+0029                  00068 LOOP_PARTE2_MSB:
+0029   2???           00069     CALL    SEGUE_FRENTE
+002A   2???           00070     CALL    TESTE_SENSOR_INTERNO_DIREITO
+002B   2???           00071     CALL    TESTE_SENSOR_INTERNO_ESQUERDO
+002C   2???           00072     CALL    TESTE_SENSOR_ENCRUZILHADA_MSB
+002D   2???           00073     CALL    PARA_RODAS
+002E   2???           00074     GOTO    LOOP_PARTE2_MSB
+                      00075     
+002F                  00076 TESTE_SENSOR_ENCRUZILHADA_MSB:
+002F   1D85           00077     BTFSS   SENSORDIREITO_EXT
+0030   0008           00078     RETURN
+0031   1C05           00079     BTFSS   SENSORESQUERDO_EXT
+0032   0008           00080     RETURN
+0033   1F06           00081     BTFSS   CHAVE_MSB
+0034   1B06           00082     BTFSC   CHAVE_MSB
+0035   2???           00083     CALL    CURVA_DIREITA_90
+0036   2???           00084     CALL    CURVA_ESQUERDA_90
+0037   2???           00085     GOTO    LOOP_PARTE2_LSB
+                      00086     
+0038                  00087 LOOP_PARTE2_LSB:
+0038   2???           00088     CALL    SEGUE_FRENTE
+0039   2???           00089     CALL    TESTE_SENSOR_INTERNO_DIREITO
+003A   2???           00090     CALL    TESTE_SENSOR_INTERNO_ESQUERDO
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+003B   2???           00091     CALL    TESTE_SENSOR_ENCRUZILHADA_LSB
+003C   2???           00092     CALL    PARA_RODAS
+003D   2???           00093     GOTO    LOOP_PARTE2_LSB
+                      00094    
+003E                  00095 TESTE_SENSOR_ENCRUZILHADA_LSB:
+003E   1D85           00096     BTFSS   SENSORDIREITO_EXT
+003F   0008           00097     RETURN
+0040   1C05           00098     BTFSS   SENSORESQUERDO_EXT
+0041   0008           00099     RETURN
+0042   1F86           00100     BTFSS   CHAVE_LSB
+0043   1B86           00101     BTFSC   CHAVE_LSB
+0044   2???           00102     CALL    CURVA_DIREITA_90
+0045   2???           00103     CALL    CURVA_ESQUERDA_90
+0046   2???           00104     GOTO    ESPERA_FIM
+                      00105   
+0047                  00106 ESPERA_FIM:
+0047   2???           00107     CALL    TESTE_SENSOR_INTERNO_DIREITO
+0048   2???           00108     CALL    TESTE_SENSOR_INTERNO_ESQUERDO
+0049   2???           00109     CALL    TESTE_SENSOR_ENCRUZILHADA
+004A   2???           00110     GOTO    ESPERA_FIM
+                      00111 
+004B                  00112 TESTE_SENSOR_ENCRUZILHADA:
+004B   1D85           00113     BTFSS   SENSORDIREITO_EXT
+004C   0008           00114     RETURN
+004D   1C05           00115     BTFSS   SENSORESQUERDO_EXT
+004E   0008           00116     RETURN
+004F   2???           00117     CALL    PARA_RODAS
+0050   1686           00118     BSF     LED_FINAL
+Warning[207]: Found label after column 1. (FIM)
+0051                  00119     FIM:
+0051   2???           00120         GOTO    FIM
+                      00121     
+0052                  00122 CHECA_FIM:
+0052   1D85           00123     BTFSS   SENSORDIREITO_EXT
+0053   0008           00124     RETURN
+0054   1C05           00125     BTFSS   SENSORESQUERDO_EXT
+0055   0008           00126     RETURN
+0056   2???           00127     GOTO    INTERMEDIARIO
+                      00128     
+0057                  00129 TESTE_SENSOR_EXT_DIREITO:
+0057   1D85           00130     BTFSS   SENSORDIREITO_EXT
+0058   0008           00131     RETURN
+0059   2???           00132     CALL    CURVA_DIREITA_90
+Message[305]: Using default destination of 1 (file).
+005A   03A5           00133     DECF    CONTADOR
+005B   0008           00134     RETURN
+                      00135     
+005C                  00136 TESTE_SENSOR_EXT_ESQUERDO:
+005C   1C05           00137     BTFSS   SENSORESQUERDO_EXT
+005D   0008           00138     RETURN
+005E   2???           00139     CALL    CURVA_ESQUERDA_90
+Message[305]: Using default destination of 1 (file).
+005F   03A5           00140     DECF    CONTADOR
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0060   0008           00141     RETURN
+                      00142     
+0061                  00143 TESTE_SENSORES_INTERNOS:
+0061   1905           00144     BTFSC   SENSORDIREITO_INT
+0062   0008           00145     RETURN
+0063   1B85           00146     BTFSC   SENSORESQUERDO_INT
+0064   0008           00147     RETURN
+0065   2???           00148     CALL    SEGUE_FRENTE
+0066   0008           00149     RETURN
+                      00150     
+0067                  00151 TESTE_SENSOR_INTERNO_DIREITO:
+0067   1D05           00152     BTFSS   SENSORDIREITO_INT
+0068   0008           00153     RETURN
+0069   2???           00154     CALL    CURVA_DIREITA
+006A   0008           00155     RETURN
+                      00156     
+006B                  00157 TESTE_SENSOR_INTERNO_ESQUERDO:
+006B   1F85           00158     BTFSS   SENSORESQUERDO_INT
+006C   0008           00159     RETURN
+006D   2???           00160     CALL    CURVA_ESQUERDA
+006E   0008           00161     RETURN
+                      00162     
+006F                  00163 SEGUE_FRENTE:
+006F   1283 1303      00164     BANKSEL PORTB
+0071   1506           00165     BSF     MOTORDIREITO1
+0072   1186           00166     BCF     MOTORDIREITO2
+0073   1406           00167     BSF     MOTORESQUERDO1
+0074   1086           00168     BCF     MOTORESQUERDO2
+0075   0008           00169     RETURN
+                      00170  
+0076                  00171 CURVA_DIREITA:
+0076   1283 1303      00172     BANKSEL PORTB
+0078   1506           00173     BSF     MOTORDIREITO1
+0079   1586           00174     BSF     MOTORDIREITO2
+007A   1406           00175     BSF     MOTORESQUERDO1
+007B   1086           00176     BCF     MOTORESQUERDO2
+007C   0008           00177     RETURN
+                      00178 
+007D                  00179 CURVA_ESQUERDA:
+007D   1283 1303      00180     BANKSEL PORTB
+007F   1406           00181     BSF     MOTORESQUERDO1
+0080   1486           00182     BSF     MOTORESQUERDO2
+0081   1506           00183     BSF     MOTORDIREITO1
+0082   1186           00184     BCF     MOTORDIREITO2
+0083   0008           00185     RETURN
+                      00186     
+0084                  00187 CURVA_DIREITA_90:
+0084   1283 1303      00188     BANKSEL PORTB
+0086   1506           00189     BSF     MOTORDIREITO1
+0087   1586           00190     BSF     MOTORDIREITO2
+0088   2???           00191     CALL    DELAY
+0089   1406           00192     BSF     MOTORESQUERDO1
+008A   1086           00193     BCF     MOTORESQUERDO2
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+008B   0008           00194     RETURN
+                      00195 
+008C                  00196 CURVA_ESQUERDA_90:
+008C   1283 1303      00197     BANKSEL PORTB
+008E   1406           00198     BSF     MOTORESQUERDO1
+008F   1486           00199     BSF     MOTORESQUERDO2
+0090   2???           00200     CALL    DELAY
+0091   1506           00201     BSF     MOTORDIREITO1
+0092   1186           00202     BCF     MOTORDIREITO2
+0093   0008           00203     RETURN
+                      00204     
+0094                  00205 CURVA_180:
+0094   1506           00206     BSF     MOTORDIREITO1
+0095   1186           00207     BCF     MOTORDIREITO2
+0096   1006           00208     BCF     MOTORESQUERDO1
+0097   1486           00209     BSF     MOTORESQUERDO2
+0098   2???           00210     CALL    DELAY
+0099   2???           00211     CALL    DELAY
+009A   2???           00212     CALL    SEGUE_FRENTE
+009B   0008           00213     RETURN
+                      00214     
+009C                  00215 PARA_RODAS:
+009C   1283 1303      00216     BANKSEL PORTB
+009E   1506           00217     BSF     MOTORDIREITO1
+009F   1586           00218     BSF     MOTORDIREITO2
+00A0   1406           00219     BSF     MOTORESQUERDO1
+00A1   1486           00220     BSF     MOTORESQUERDO2
+00A2   0008           00221     RETURN
+                      00222     
+00A3                  00223 DELAY:
+00A3   3054           00224     MOVLW 0X54
+00A4   00A2           00225     MOVWF DCounter1
+00A5   3070           00226     MOVLW 0X70
+00A6   00A3           00227     MOVWF DCounter2
+00A7   3003           00228     MOVLW 0X03
+00A8   00A4           00229     MOVWF DCounter3
+Warning[207]: Found label after column 1. (LOOP)
+00A9                  00230     LOOP
+00A9   0BA2           00231     DECFSZ DCounter1, 1
+00AA   2???           00232     GOTO LOOP
+00AB   0BA3           00233     DECFSZ DCounter2, 1
+00AC   2???           00234     GOTO LOOP
+00AD   0BA4           00235     DECFSZ DCounter3, 1
+00AE   2???           00236     GOTO LOOP
+00AF   0000           00237     NOP
+00B0   0008           00238     RETURN
+                      00239 
+Warning[205]: Found directive in column 1. (END)
+                      00240 END
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADDEN                             00000003
+ADEN                              00000003
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CHAVE_LSB                         PORTB,7
+CHAVE_MSB                         PORTB,6
+CHECA_FIM                         00000052
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000001F
+CMIE                              00000006
+CMIF                              00000006
+CONFIG_INI                        00000005
+CONTADOR                          00000025
+CREN                              00000004
+CSRC                              00000007
+CURVA_180                         00000094
+CURVA_DIREITA                     00000076
+CURVA_DIREITA_90                  00000084
+CURVA_ESQUERDA                    0000007D
+CURVA_ESQUERDA_90                 0000008C
+DATA_CP_OFF                       00003FFF
+DATA_CP_ON                        00003EFF
+DC                                00000001
+DCounter1                         00000022
+DCounter2                         00000023
+DCounter3                         00000024
+DELAY                             000000A3
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+ESPERA_FIM                        00000047
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+F                                 00000001
+FERR                              00000002
+FIM                               00000051
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTERMEDIARIO                     00000023
+INTF                              00000001
+IRP                               00000007
+LED_FINAL                         PORTB,5
+LOOP                              000000A9
+LOOP_PARTE1                       00000018
+LOOP_PARTE2_LSB                   00000038
+LOOP_PARTE2_MSB                   00000029
+MOTORDIREITO1                     PORTB,2
+MOTORDIREITO2                     PORTB,3
+MOTORESQUERDO1                    PORTB,0
+MOTORESQUERDO2                    PORTB,1
+NOT_BO                            00000000
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+OERR                              00000001
+OPTION_REG                        00000081
+OSCF                              00000003
+PARA_RODAS                        0000009C
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA7                               00000007
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+SEGUE_FRENTE                      0000006F
+SENSORDIREITO_EXT                 PORTA,3
+SENSORDIREITO_INT                 PORTA,2
+SENSORESQUERDO_EXT                PORTA,0
+SENSORESQUERDO_INT                PORTA,7
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TESTE_SENSORES_INTERNOS           00000061
+TESTE_SENSOR_ENCRUZILHADA         0000004B
+TESTE_SENSOR_ENCRUZILHADA_LSB     0000003E
+TESTE_SENSOR_ENCRUZILHADA_MSB     0000002F
+TESTE_SENSOR_EXT_DIREITO          00000057
+TESTE_SENSOR_EXT_ESQUERDO         0000005C
+TESTE_SENSOR_INTERNO_DIREITO      00000067
+TESTE_SENSOR_INTERNO_ESQUERDO     0000006B
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISA6                            00000006
+TRISA7                            00000007
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRMT                              00000001
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             0000009F
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+MPASM 5.84                       MAINASM.ASM   12-5-2019  12:33:05         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEVID1                           00002006
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_FOSC_ECIO                        00003FEF
+_FOSC_EXTRCCLK                    00003FFF
+_FOSC_EXTRCIO                     00003FFE
+_FOSC_HS                          00003FEE
+_FOSC_INTOSCCLK                   00003FFD
+_FOSC_INTOSCIO                    00003FFC
+_FOSC_LP                          00003FEC
+_FOSC_XT                          00003FED
+_HS_OSC                           00003FEE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INTOSC_OSC_CLKOUT                00003FFD
+_INTOSC_OSC_NOCLKOUT              00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC_CLKOUT                    00003FFF
+_RC_OSC_NOCLKOUT                  00003FFE
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FED
+__16F628A                         00000001
+
+Errors   :     0
+Warnings :     5 reported,     0 suppressed
+Messages :     4 reported,     0 suppressed
+
+
